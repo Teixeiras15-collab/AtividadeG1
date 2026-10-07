@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.claude/
+*.pdf
+/simulacao_criminalidade_brasil.csv

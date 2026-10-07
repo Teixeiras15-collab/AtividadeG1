@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criminalidade em Grandes Cidades Brasileiras</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --txt:#1d2433; --muted:#5b6475; --accent:#b3261e; --line:#e3e6eb; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; }
+  header { background:linear-gradient(135deg,#1d2433,#3b1f24); color:#fff; padding:56px 16px 44px; text-align:center; }
+  header h1 { margin:0 0 10px; font-size:clamp(1.7rem,4vw,2.6rem); }
+  header p { margin:0 auto; max-width:760px; color:#d9dce3; }
+  .autoria { margin-top:22px; display:inline-block; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:12px 20px; text-align:left; font-size:.95rem; }
+  .autoria b { color:#fff; }
+  main { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:24px 28px; margin:20px 0; }
+  h2 { margin-top:0; color:var(--accent); font-size:1.35rem; }
+  ul { padding-left:20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+  .kpi { border:1px solid var(--line); border-radius:10px; padding:14px; }
+  .kpi strong { display:block; font-size:1.5rem; color:var(--txt); }
+  .kpi span { color:var(--muted); font-size:.9rem; }
+  .tags span { display:inline-block; background:#eef0f4; border-radius:999px; padding:4px 12px; margin:4px 4px 0 0; font-size:.9rem; }
+  .botoes a { display:inline-block; margin:6px 8px 0 0; padding:10px 18px; border-radius:8px; background:var(--txt); color:#fff; text-decoration:none; font-weight:600; }
+  .botoes a.destaque { background:var(--accent); }
+  .botoes a:hover { opacity:.88; }
+  figure { margin:0; }
+  figure img { width:100%; border:1px solid var(--line); border-radius:8px; }
+  figcaption { color:var(--muted); font-size:.88rem; margin-top:4px; }
+  .galeria { display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:18px; }
+  @media (max-width:500px) { .galeria { grid-template-columns:1fr; } section { padding:18px; } }
+  footer { text-align:center; color:var(--muted); font-size:.9rem; padding:24px 16px 40px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚨 Criminalidade em Grandes Cidades Brasileiras</h1>
+  <p>Projeto de análise e visualização de dados com Python, Pandas, Matplotlib, Seaborn, SQLAlchemy e Streamlit — Tema 15 da Avaliação G1.</p>
+  <div class="autoria">
+    <b>Disciplina:</b> Linguagens de Programação<br>
+    <b>Professor:</b> Alexandre Neves Louzada<br>
+    <b>Aluno:</b> João Victor Gomes Teixeira
+  </div>
+</header>
+
+<main>
+  <section>
+    <h2>Sobre o projeto</h2>
+    <p>Este projeto analisa <strong>4.440 registros mensais de ocorrências criminais</strong> em <strong>37 grandes cidades</strong>
+    de 20 estados e das 5 regiões do Brasil, entre <strong>2015 e 2024</strong>. O fluxo completo cobre leitura e tratamento da base,
+    engenharia de atributos, persistência em banco relacional SQLite, análise exploratória com KPIs e gráficos e, por fim,
+    um dashboard interativo publicado na web. A base é <em>simulada</em>, para fins didáticos.</p>
+  </section>
+
+  <section>
+    <h2>Perguntas de negócio</h2>
+    <ul>
+      <li>Quais regiões, estados e cidades concentram mais ocorrências?</li>
+      <li>Quais tipos de crime são mais frequentes e quais geram mais vítimas?</li>
+      <li>Há diferença entre períodos do dia e tipos de bairro?</li>
+      <li>Como a criminalidade evoluiu entre 2015 e 2024? Existe sazonalidade?</li>
+      <li>Renda média e índice de violência têm relação com o volume de crimes?</li>
+      <li>Qual a eficiência policial, medida pela taxa de prisões por ocorrência?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Indicadores analisados</h2>
+    <div class="grid">
+      <div class="kpi"><strong>132.845</strong><span>Total de ocorrências</span></div>
+      <div class="kpi"><strong>22.220</strong><span>Total de vítimas</span></div>
+      <div class="kpi"><strong>13.219</strong><span>Total de prisões</span></div>
+      <div class="kpi"><strong>10,0%</strong><span>Taxa de prisão (prisões ÷ ocorrências)</span></div>
+      <div class="kpi"><strong>64,7</strong><span>Índice de violência médio</span></div>
+      <div class="kpi"><strong>−0,1%</strong><span>Variação de ocorrências 2015 → 2024</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Principais resultados</h2>
+    <ul>
+      <li><strong>Distribuição homogênea:</strong> o Sudeste lidera em volume (~35%) por ter mais cidades na amostra, mas a média por cidade/mês é ~30 em todas as regiões.</li>
+      <li><strong>Roubo e Tráfico</strong> são os crimes mais frequentes; Roubo se concentra na madrugada e Tráfico à tarde.</li>
+      <li><strong>Série estável</strong> entre 2015 e 2024, sem tendência ou sazonalidade relevante.</li>
+      <li><strong>Taxa de prisão baixa (~10%)</strong>: cerca de uma prisão a cada dez ocorrências.</li>
+      <li><strong>Correlações próximas de zero</strong> entre renda, índice de violência e ocorrências; o nível de risco é inconsistente com o índice de violência.</li>
+    </ul>
+    <div class="galeria">
+      <figure><img src="imagens/02_regiao.png" alt="Ocorrências por região"><figcaption>Total vs. média normalizada por região</figcaption></figure>
+      <figure><img src="imagens/03_tipo_crime.png" alt="Ocorrências por tipo de crime"><figcaption>Ocorrências por tipo de crime</figcaption></figure>
+      <figure><img src="imagens/04_serie_temporal.png" alt="Série temporal"><figcaption>Evolução mensal com média móvel de 12 meses</figcaption></figure>
+      <figure><img src="imagens/05_heatmap_crime_periodo.png" alt="Mapa de calor crime x período"><figcaption>Tipo de crime × período do dia</figcaption></figure>
+      <figure><img src="imagens/07_correlacao.png" alt="Matriz de correlação"><figcaption>Matriz de correlação de Pearson</figcaption></figure>
+      <figure><img src="imagens/09_risco_indice.png" alt="Nível de risco x índice"><figcaption>Índice de violência por nível de risco</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tecnologias utilizadas</h2>
+    <div class="tags">
+      <span>Python</span><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span><span>Plotly</span>
+      <span>Streamlit</span><span>SQLAlchemy</span><span>SQLite</span><span>Jupyter</span><span>GitHub</span><span>GitHub Pages</span>
+    </div>
+    <p><strong>Funcionalidades avançadas:</strong> persistência em banco (SQLAlchemy + SQLite), modelagem relacional
+    (<code>cidades</code> ⟷ <code>ocorrencias</code>), mapa interativo (Plotly), correlação estatística (Pearson/Spearman)
+    e séries temporais com média móvel.</p>
+  </section>
+
+  <section>
+    <h2>Arquivos do projeto</h2>
+    <p>Código-fonte, notebook de análise e base de dados disponíveis no repositório:</p>
+    <div class="botoes">
+      <a href="https://github.com/Teixeiras15-collab/AtividadeG1">Repositório GitHub</a>
+      <a href="https://github.com/Teixeiras15-collab/AtividadeG1/blob/main/README.md">README</a>
+      <a href="https://github.com/Teixeiras15-collab/AtividadeG1/blob/main/notebooks/analise_criminalidade.ipynb">Notebook (.ipynb)</a>
+      <a href="https://colab.research.google.com/github/Teixeiras15-collab/AtividadeG1/blob/main/notebooks/analise_criminalidade.ipynb">Abrir no Colab</a>
+      <a href="dados/simulacao_criminalidade_brasil.csv" download>Base CSV</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dashboard interativo</h2>
+    <p>O dashboard em Streamlit permite filtrar por período, região, UF, cidade, tipo de crime, período do dia, bairro e nível
+    de risco, com KPIs dinâmicos, gráficos interativos, mapa, matriz de correlação, tabelas e conclusão executiva.</p>
+    <div class="botoes"><a class="destaque" href="https://atividadeg1.streamlit.app/">Acessar o dashboard</a></div>
+  </section>
+
+  <section>
+    <h2>Objetivo pedagógico</h2>
+    <p>Demonstrar o ciclo completo de um projeto de dados — da base bruta à publicação online — aplicando as bibliotecas
+    estudadas na disciplina e transformando dados em informação para apoiar decisões em segurança pública.</p>
+  </section>
+</main>
+
+<footer>
+  Linguagens de Programação · Prof. Alexandre Neves Louzada · João Victor Gomes Teixeira · 2026
+</footer>
+</body>
+</html>
