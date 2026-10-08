@@ -23,8 +23,9 @@ def carregar_banco():
 
 # ---------------- Cabeçalho ----------------
 st.title("🚨 Criminalidade em Grandes Cidades Brasileiras")
-st.caption("Disciplina: **Linguagens de Programação** · Professor: **Alexandre Neves Louzada** · "
-           "Aluno: **João Victor Gomes Teixeira** · Avaliação G1 — Tema 15")
+st.caption("Disciplina: **Linguagens de Programação** · Avaliação G1 — Tema 15")
+st.caption("Professor: **Alexandre Neves Louzada**")
+st.caption("Aluno: **João Victor Gomes Teixeira**")
 
 with st.expander("📌 Descrição do problema", expanded=True):
     st.markdown("""
